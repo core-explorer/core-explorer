@@ -1,0 +1,5 @@
+index.wasm index.js and index.html are output of the Emscripten compiler and licensed as CC BY-NC-ND 4.0
+style.css is CC0
+favicon.svg is extracted from Material design icons, which have been released under the Apache License Version 2.0
+sorttable.js contains its own license information
+
