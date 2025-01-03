@@ -13,7 +13,7 @@ Features:
 * supports the debuginfod protocol to download debug information
 * Coredump parser: 
     * can identify all C++ objects in memory that possess virtual methods. This works even for stripped binaries.
-    * can identify all allocations allocated or freed my glibc malloc. This requires debug information for the C library and ld.so
+    * can identify all allocations allocated or freed by glibc malloc. This requires debug information for the C library and ld.so
     * can identify memory leaks and references into freed allocations
 
 ![Dark Theme](images/namespace_std_dark.png)
