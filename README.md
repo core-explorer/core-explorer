@@ -37,6 +37,10 @@ Try it with [example core dump](https://core-explorer.github.io/core-explorer?do
 ![Memory Leaks](images/memory_leak_light.png)
 ![Memory Contents](images/memory_contents_dark.png)
 
+## Standalone Application ##
+
+There is also a standalone node.js application [cdx.js](README_cdx.md)
+
 ## Important: ##
 *Do not leak client data by sharing core dumps.* 
 
