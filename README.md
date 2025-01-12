@@ -25,12 +25,12 @@ Work in progress:
 * search and queries
 
 Limitations:
-* Platform dependent features have only been implemented for x86-64 and aarch64
+* Platform dependent features have only been implemented for x86-64 and aarch64.
 * Only tested with user space applications and only on Linux.
-* If you run this in your web browser, you are limited to 2GB total memory
-* It needs progress bars
+* If you run this in your web browser, you are limited to 2GB total memory.
+* It does not have progress bars.
 
-If you don't have a linux core dump available, I put one into the [example](example) folder
+If you don't have a linux core dump available, I put one into the [example](example) folder:
 
 Try it with [example core dump](https://core-explorer.github.io/core-explorer?download=https://core-explorer.github.io/core-explorer/example/core.3394593&download1=https://core-explorer.github.io/core-explorer/example/dummy_O2_zrelro_g_fPIE&download2=https://core-explorer.github.io/core-explorer/example/libshared_O2_zrelro_g.so)
 
@@ -39,7 +39,7 @@ Try it with [example core dump](https://core-explorer.github.io/core-explorer?do
 
 ## Standalone Application ##
 
-There is also a standalone node.js application [cdx.js](README_cdx.md)
+There is also a standalone node.js application [cdx.js](README_cdx.md).
 
 ## Important: ##
 *Do not leak client data by sharing core dumps.* 

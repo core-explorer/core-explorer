@@ -1,4 +1,4 @@
-complete list of statically linked dependencies of cdx.js v0.0.2
+complete list of statically linked dependencies of cdx.js v0.0.3
 
 Emscripten 3.1.74
 boost algorithm 1.83.0 via emscripten ports

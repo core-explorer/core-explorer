@@ -177,6 +177,9 @@
     padding-left: 5px;
     word-wrap: break-all;
   
+  }
+
+  .wide {
     width: 100%;
   }
   
@@ -255,6 +258,12 @@
     font-family: "Ubuntu Sans Mono", monospace;
   }
   
+
+  .ascii {
+    font-family: "Ubuntu Sans Mono", monospace;
+  }
+  
+
   .keyword {
     color: var(--key-color);
     font-weight: bold;

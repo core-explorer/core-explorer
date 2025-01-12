@@ -12,6 +12,9 @@ If you have a sysroot, you can specify it as
 Unlike the web application hosted at https://core-explorer.github.io/core-explorer it is not possible to add additional files after startup.
 
 By default, it opens a local webserver on 127.0.0.1 port 8086. The port can be changed with `--port`
+When used via cdx.js, the web UI does not require JavaScript and is fully compatible with text mode browsers:
+![Text Browser](images/cli_browser_coredump.png)
+
 
 Requirements:
 - node.js version 23.0.0 or newer
@@ -25,11 +28,11 @@ There are other operating modes besides `server`:
 
 
 There are some more operating modes used for development, for which there exist better supported alternatives:
-- `cdx readelf` behaves similar to readelf, eu-readelf, llvm-readelf and similar tools. This is used to test the ELF parser against those tools. Use them instead
+- `cdx readelf` behaves similar to readelf, eu-readelf, llvm-readelf and similar tools. This is used to test the ELF parser against those tools. ![readelf](images/cli_readelf.png)
 - `cdx ldd` behaves similar to libtree and other utilities that simulate ldd. ldd is a shell script which runs the dynamic loader specified in an executable, which may pose a security risk when a malicious binary replaces the default loader.
 Eventually, the Core Explorer web UI will use this information to highlight shared libraries that are not load-time dependencies and have therefore been dynamically loaded with `dlopen()`
 - `cdx dwarfdump` is a very crude approximation of dwarfdump and llvm-dwarfdump that I use for testing. Use those tools instead
-- `cdx view` is a hexviewer and disassembler. Use objdump, eu-objdump, llvm-objdump or radare2 if you need such functionality.
+- `cdx view` is a hexviewer and disassembler. Alternatives are objdump, eu-objdump, llvm-objdump or radare2. ![hexviewer](images/cli_hexview_disass.png)
 
 The list of tools can be obtained with `cdx --help`. Each tool has independent options, which can be seen with, e.g. `cdx virt --help`
 
