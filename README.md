@@ -12,15 +12,16 @@ Features:
 * DWARF parser for debug information. Presents files, namespaces, types and variables in a manner similar to doxygen.
 * supports the debuginfod protocol to download debug information
 * Coredump parser: 
-    * can identify all C++ objects in memory that possess virtual methods. This works even for stripped binaries.
-    * can identify all allocations allocated or freed by glibc malloc. This requires debug information for the C library and ld.so
-    * can identify memory leaks and references into freed allocations
+    * identify all C++ objects in memory that possess virtual methods. This works even for stripped binaries.
+    * identify all allocations allocated or freed by glibc malloc. This requires debug information for the C library and ld.so
+    * identify memory leaks and references into freed allocations
+    * unwind the stack for all threads and display local variables and function parameters
 
 ![Dark Theme](images/namespace_std_dark.png)
 ![Light Theme](images/namespace_std_light.png)
 
 Work in progress:
-* stack unwinder and identify all local variables
+* find the shortest possible name for C++ types and functions
 * using debug information, recursively follow all pointers in identified objects on the stack, heap, global variables and thread local storage
 * search and queries
 

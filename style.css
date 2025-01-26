@@ -10,7 +10,7 @@
     --button-bg-color: #eee;
     --header-bg-color: #eee;
   }
-  .dark-mode {
+  .darkmode {
     --bg-color: #1b1b1b;
     --text-color: #fff;
     --key-color: indianred;
