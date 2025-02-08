@@ -1,0 +1,2 @@
+#!/bin/sh
+exec $HOME/.cdx/bin/node --experimental-wasm-memory64 $HOME/.cdx/bin/cdx.js readelf "$@" 

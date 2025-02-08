@@ -1,0 +1,30 @@
+name: Blackbox testing
+run-name: testing cdx.js
+on: [push]
+jobs:
+  Github-Actions-Blackbox-Testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Download data
+        run: |
+          cd ${{ github.workspace }}
+          cd testing
+          ./download.sh
+      - name: Prepare data
+        run: |
+          cd ${{ github.workspace }}
+          cd testing
+          ./prepare.sh
+      - name: Run CLI tests
+        run: |
+          cd ${{ github.workspace }}
+          cd testing
+          ./run_cli.sh
+      - name: Run HTML tests
+        run: |
+          cd ${{ github.workspace }}
+          cd testing
+          ./run_html.sh
+      - run: echo "job status ${{ job.status }}."
