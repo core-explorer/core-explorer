@@ -14,17 +14,17 @@ cdx server $f --get index.html > files.html
 cdx server $f --get file/0/ > file.html
 cdx server $f --get file/0/section/ > sections.html
 set +e
-tidy -e files.html
+tidy -q -e files.html
 EXITCODE=$?
 if [ "$EXITCODE" = "2" ] ; then
 exit 1
 fi
-tidy -e file.html
+tidy -q -e file.html
 EXITCODE=$?
 if [ "$EXITCODE" = "2" ] ; then
 exit 1
 fi
-tidy -e sections.html
+tidy -q -e sections.html
 EXITCODE=$?
 if [ "$EXITCODE" = "2" ] ; then
 exit 1
