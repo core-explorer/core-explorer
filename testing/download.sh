@@ -4,11 +4,11 @@ set -u
 set -x
 echo DOWNLOAD
 
-if llvm-readelf --version && eu-readelf --version && readelf --version && which ansi2txt && gdb --version && tidy --version ; then
+if llvm-readelf --version && eu-readelf --version && readelf --version && which ansi2txt && g++ --version && i686-linux-gnu-g++ --version && gdb --version && tidy --version ; then
 true
 else
 sudo apt-get update
-sudo apt-get install llvm elfutils binutils colorized-logs gdb g++ tidy 
+sudo apt-get install llvm elfutils binutils colorized-logs gdb g++ g++-i686-linux-gnu tidy 
 fi
 mkdir -p $HOME/.cdx/bin
 if [ ! -e $HOME/.cdx/node-latest-linux-x64/bin/node ] ; then 

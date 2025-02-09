@@ -272,13 +272,13 @@ void func(POD arg) {
 	//raise(SIGTRAP);
 	printf("clearing %p \n", (void*)longString32.data());
 	longString32 = {};
-	printf("new capacity %ld\n", longString32.capacity());
+	printf("new capacity %zu\n", longString32.capacity());
 	printf("freeing %p \n", (void*)oi1.get());
 	oi1.reset();
 	printf("freeing %p \n", (void*)ni1.get());
 	ni1.reset();
-	uint64_t* ptr = nullptr;
-	printf("ptr %ld\n", ptr[0]);
+	size_t* ptr = nullptr;
+	printf("ptr %zu\n", ptr[0]);
 	abort();
 	atomic = 0;
 #if 0

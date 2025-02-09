@@ -8,7 +8,7 @@ export PATH=$PATH:$HOME/.cdx/bin
 cdx-readelf --version
 
 TOOLS="llvm elfutils binutils cdx"
-FILES=build/*
+FILES=build/*/*
 OPTIONS="-S --sections"
 
 

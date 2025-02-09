@@ -7,7 +7,7 @@ echo RUN
 export PATH=$PATH:$HOME/.cdx/bin
 cdx-readelf --version
 
-FILES=build/*
+FILES=build/*/*
 
 for f in $FILES; do
 cdx server $f --get index.html > files.html
