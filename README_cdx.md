@@ -3,11 +3,11 @@
 [cdx.js](cdx.js) is a self-contained command-line application that provides a dedicated server for Core Explorer.
 
 You use it like this
-`node --experimental-wasm-memory64 cdx server inputfile1 inputfile2 ...`
+`node cdx server inputfile1 inputfile2 ...`
 
 If you have a sysroot, you can specify it as 
 
-`node --experimental-wasm-memory64 cdx server inputfile1 inputfile2 --sysroot /path/to/sysroot`
+`node cdx server inputfile1 inputfile2 --sysroot /path/to/sysroot`
 
 Unlike the web application hosted at https://core-explorer.github.io/core-explorer it is not possible to add additional files after startup.
 
