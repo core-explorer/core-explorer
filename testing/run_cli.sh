@@ -8,7 +8,7 @@ export PATH=$PATH:$HOME/.cdx/bin
 cdx-readelf --version
 
 TOOLS="elfutils cdx"
-FILES=build/*/*
+FILES=build/*-*/*-*/dummy.pie
 OPTIONS="--segments --sections --debug-dump=info"
 
 
