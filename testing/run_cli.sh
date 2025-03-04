@@ -7,9 +7,9 @@ echo RUN
 export PATH=$PATH:$HOME/.cdx/bin
 cdx-readelf --version
 
-TOOLS="llvm elfutils binutils cdx"
+TOOLS="elfutils cdx"
 FILES=build/*/*
-OPTIONS="-S --sections"
+OPTIONS="--segments --sections --debug-dump=info"
 
 
 for t in $TOOLS; do
