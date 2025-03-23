@@ -3,12 +3,12 @@ set -e
 set -u
 set -x
 echo RUN
-
+LANG=C
 export PATH=$PATH:$HOME/.cdx/bin
 cdx-readelf --version
 
 TOOLS="elfutils cdx"
-FILES=build/*-*/*-*/dummy.pie
+FILES=build/*-*/*-*/dummy-buildid.pie
 OPTIONS="--segments --sections --debug-dump=info"
 
 

@@ -33,6 +33,9 @@ fi
 if [ "$DWARF" = "dwarf-4" ] && [ "$COMPRESS" != "none" ] ; then
     continue
 fi
+if [ "$DWARFCLASS" = "dwarf64" ] && [ "$COMPRESS" != "none" ] ; then
+	continue;
+fi
 
 CXX=${CC}++
 DBG=lldb
@@ -67,22 +70,34 @@ if [ "$COMPRESS" = "none" ] ; then
 GZ=""
 LGZ=""
 fi
-$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $OPT -fPIC -shared -o libshared.so $SOURCE/shared.cxx
-$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $OPT -fPIE  -o dummy.o -c $SOURCE/dummy.cxx
-$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $LGZ $OPT -fno-PIE -no-pie -Wl,-z,relro -Wl,-z,now -Wl,-rpath=\$ORIGIN -o dummy $SOURCE/dummy.cxx libshared.so
-$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $LGZ $OPT -fno-PIE -no-pie -Wl,-z,relro -Wl,-z,now -Wl,-rpath=\$ORIGIN -Wl,--build-id -o dummy.buildid $SOURCE/dummy.cxx libshared.so
-$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $LGZ $OPT -fPIE -pie -Wl,-rpath=$(pwd) $LGZ -o dummy.pie dummy.o libshared.so 
-objcopy -N __JCR_END__ dummy.pie
-objcopy --only-keep-debug dummy dummy.dbg
-objcopy --strip-debug dummy dummy.stripped
-objcopy --add-gnu-debuglink=dummy.dbg dummy.stripped
-if [ "$DBG" = "gdb" ] ; then
-gdb -batch -ex r -ex "generate-core dummy.gdb.core " -ex kill -ex q < /dev/null dummy.stripped
-else
-if [ "$RAW_ARCH" = "$HOST_ARCH" ] ; then
-lldb -batch --one-line r --one-line "process save-core dummy.lldb.core " --one-line kill --one-line q < /dev/null dummy.stripped
-fi
-fi
+$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $OPT -fPIC -Wl,--build-id=sha1 -shared -o libshared-buildid.so $SOURCE/shared.cxx
+$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $OPT -fPIC -Wl,--build-id=none -shared -o libshared-noid.so $SOURCE/shared.cxx
+$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $OPT -fPIE  -o dummy.pie.o -c $SOURCE/dummy.cxx
+$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $OPT -fno-PIE  -o dummy.exe.o -c $SOURCE/dummy.cxx
+
+$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $LGZ $OPT -fPIE -pie -Wl,-z,relro -Wl,-z,now -Wl,-rpath=\$ORIGIN -Wl,--build-id=sha1 -o dummy-buildid.pie $SOURCE/dummy.cxx libshared-buildid.so
+$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $LGZ $OPT -fPIE -pie -Wl,-z,relro -Wl,-z,now -Wl,-rpath=\$ORIGIN -Wl,--build-id=none -o dummy-noid.pie $SOURCE/dummy.cxx libshared-noid.so
+
+
+$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $LGZ $OPT -fno-PIE -no-pie -Wl,-z,norelro -Wl,-rpath=\$ORIGIN -Wl,--build-id=sha1 -o dummy-buildid.exe $SOURCE/dummy.cxx libshared-buildid.so
+$CXX $TARGET $LIBFLAGS -g3 -g$DBG -g$DWARF -g$DWARFCLASS $GZ $LGZ $OPT -fno-PIE -no-pie -Wl,-z,norelro -Wl,-rpath=\$ORIGIN -Wl,--build-id=none -o dummy-noid.exe $SOURCE/dummy.cxx libshared-noid.so
+
+
+
+for DUMMY in dummy-buildid.exe dummy-noid.exe dummy-buildid.pie dummy-noid.pie ; do
+    objcopy -N __JCR_END__ $DUMMY # java c runtime symbol defined on FreeBSD that aliases other symbols
+    objcopy --only-keep-debug $DUMMY $DUMMY.dbg
+    objcopy --strip-debug $DUMMY $DUMMY.stripped
+    objcopy --add-gnu-debuglink=$DUMMY.dbg $DUMMY.stripped
+
+    if [ "$DBG" = "gdb" ] ; then
+        gdb -batch -ex "set disable-randomization off" -ex r -ex "generate-core $DUMMY.gdb.core " -ex kill -ex q < /dev/null $DUMMY.stripped
+    else
+        if [ "$RAW_ARCH" = "$HOST_ARCH" ] ; then
+            lldb -batch --one-line "settings set target.disable-aslr false" --one-line r --one-line "process save-core $DUMMY.lldb.core " --one-line kill --one-line q < /dev/null $DUMMY.stripped
+        fi
+    fi
+done
 
 cd ..
 cd ..
