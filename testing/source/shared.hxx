@@ -2,9 +2,9 @@
 #include <errno.h>
 
 struct SharedBase {
-	__attribute__((visibility("protected"))) virtual void muck() = 0;
+	__attribute__((visibility("default"))) virtual void muck() = 0;
 
-	__attribute__((visibility("protected"))) virtual ~SharedBase() = default;
+	__attribute__((visibility("default"))) virtual ~SharedBase() = default;
 };
 
 struct SharedDerived : public SharedBase {

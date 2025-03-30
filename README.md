@@ -14,8 +14,8 @@ Features:
 * Coredump parser: 
     * identify all C++ objects in memory that possess virtual methods. This works even for stripped binaries.
     * identify all allocations allocated or freed by glibc malloc. This requires debug information for the C library and ld.so
-    * identify memory leaks and references into freed allocations
-    * unwind the stack for all threads and display local variables and function parameters
+    * identify memory leaks and references into freed allocations (temporarily not exposed in UI until refactoring is complete)
+    * unwind the stack for all threads and display local variables and function parameters. Requires unwind information in the Itanium ABI, does not support compact unwind information used by 32-bit ARM.
 
 ![Dark Theme](images/namespace_std_dark.png)
 ![Light Theme](images/namespace_std_light.png)
@@ -27,7 +27,7 @@ Work in progress:
 
 Limitations:
 * Platform dependent features have only been implemented for x86-64 and aarch64.
-* Only tested with user space applications and only on Linux.
+* Only tested with user space applications and only on Linux, support for FreeBSD is in progress.
 * If you run this in your web browser, you are limited to 2GB total memory.
 * It does not have progress bars.
 

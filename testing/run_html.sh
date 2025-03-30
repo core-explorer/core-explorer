@@ -5,7 +5,7 @@ set -x
 echo RUN
 
 export PATH=$PATH:$HOME/.cdx/bin
-cdx-readelf --version
+cdx server --version
 
 FILES=build/*-*/*-*/*
 

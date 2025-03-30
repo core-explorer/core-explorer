@@ -18,7 +18,7 @@ SharedBase3::~SharedBase3() {}
 void SharedBase3::meck() {
 }
 
-__attribute__((visibility("protected"))) void set_thread_data(int v) {
+void set_thread_data(int v) {
 	thread_data = new ThreadData;
 	thread_data->value = v;
 	thread_data2 = new ThreadData;

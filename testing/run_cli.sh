@@ -1,14 +1,20 @@
 #!/bin/sh
+
 set -e
 set -u
 set -x
+
+cd "${0%/*}"
+
 echo RUN
 LANG=C
 export PATH=$PATH:$HOME/.cdx/bin
-cdx-readelf --version
+which node
+node --version
+cdx readelf --version
 
-TOOLS="elfutils cdx"
-FILES=build/*-*/*-*/dummy-buildid.pie
+TOOLS="elfutils cdx" # binutils
+FILES="build/*-*/*-*/dummy-buildid.pie build/*-*/*-*/dummy-buildid.exe"
 OPTIONS="--segments --sections --debug-dump=info"
 
 

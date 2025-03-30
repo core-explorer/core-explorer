@@ -23,11 +23,11 @@ exit 1
 fi
 
 if [ "$TOOLNAME" = "cdx" ] ; then
-cdx-readelf --color=always $OPTION $FILE > colored.tmp ; ansi2txt < colored.tmp > golden_$TOOLNAME.txt
+cdx readelf --color=always $OPTION $FILE > colored.tmp ; ansi2txt < colored.tmp > golden_$TOOLNAME.txt
 else
 $TOOL $OPTION $FILE > golden_$TOOLNAME.txt
 fi
 
-cdx-readelf --format=$TOOLNAME $OPTION $FILE > output_$TOOLNAME.txt
+cdx readelf --format=$TOOLNAME $OPTION $FILE > output_$TOOLNAME.txt
 
 exec diff   --color golden_$TOOLNAME.txt output_$TOOLNAME.txt

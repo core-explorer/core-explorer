@@ -28,10 +28,10 @@ There are other operating modes besides `server`:
 
 
 There are some more operating modes used for development, for which there exist better supported alternatives:
-- `cdx readelf` behaves similar to readelf, eu-readelf, llvm-readelf and similar tools. This is used to test the ELF parser against those tools. ![readelf](images/cli_readelf.png)
+- `cdx readelf` behaves similar to readelf, eu-readelf, llvm-readelf and similar tools. This is used to test the ELF parser and DWARF parser against those tools. ![readelf](images/cli_readelf.png) Use `--format=elfutils` or `--format=binutils` to get the same output (except colored) as these implementations.
 - `cdx ldd` behaves similar to libtree and other utilities that simulate ldd. ldd is a shell script which runs the dynamic loader specified in an executable, which may pose a security risk when a malicious binary replaces the default loader.
 Eventually, the Core Explorer web UI will use this information to highlight shared libraries that are not load-time dependencies and have therefore been dynamically loaded with `dlopen()`
-- `cdx dwarfdump` is a very crude approximation of dwarfdump and llvm-dwarfdump that I use for testing. Use those tools instead
+- `cdx srcfiles` behaves similar to eu-srcfiles from elfutils
 - `cdx view` is a hexviewer and disassembler. Alternatives are objdump, eu-objdump, llvm-objdump or radare2. ![hexviewer](images/cli_hexview_disass.png)
 
 The list of tools can be obtained with `cdx --help`. Each tool has independent options, which can be seen with, e.g. `cdx virt --help`
