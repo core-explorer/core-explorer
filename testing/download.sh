@@ -8,7 +8,7 @@ if llvm-readelf --version && eu-readelf --version && readelf --version && which 
 true
 else
 sudo apt-get update
-sudo apt-get install nodejs llvm libc++-dev lldb elfutils binutils colorized-logs gdb g++ g++-x86-64-linux-gnu g++-i686-linux-gnu g++-aarch64-linux-gnu g++-arm-linux-gnueabihf g++-riscv64-linux-gnu tidy 
+sudo apt-get install llvm libc++-dev lldb elfutils binutils colorized-logs gdb g++ g++-x86-64-linux-gnu g++-i686-linux-gnu g++-aarch64-linux-gnu g++-arm-linux-gnueabihf g++-riscv64-linux-gnu tidy 
 fi
 mkdir -p $HOME/.cdx/bin
 #if [ ! -e $HOME/.cdx/node-latest-linux-x64/bin/node ] ; then 
