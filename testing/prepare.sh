@@ -5,7 +5,7 @@ set -x
 echo PREPARE
 HOST_ARCH="$(uname -m)"
 HOST_SYSTEM="$(uname -o|sed 's+GNU/Linux+linux-gnu+g;s/FreeBSD/freebsd/g')"
-BUILD_ARCHITECTURES="x86_64 i686 aarch64 riscv64 arm"
+BUILD_ARCHITECTURES="x86_64 i686 aarch64 riscv64" # arm
 RUN_ARCHITECTURES="$HOST_ARCH"
 SOURCE=$(pwd)/source
 mkdir -p build
@@ -29,26 +29,26 @@ fi
 for CC in clang gcc ; do
 for DWARF in dwarf-4 dwarf-5 ; do
 for DWARFCLASS in dwarf32 dwarf64 ; do
-for COMPRESS in none zlib zstd ; do
-
+for COMPRESS in znone zlib zstd ; do
+for OLEVEL in O0 O2 ; do
 if [ "$RAW_ARCH" != "$HOST_ARCH" ] ; then
     if [ "$DWARFCLASS" = "dwarf64" ] ; then
     continue
     fi
-    if [ "$COMPRESS" != "none" ] ; then
+    if [ "$COMPRESS" != "znone" ] ; then
     continue
     fi
 fi
 
-if [ "$DWARF" = "dwarf-4" ] && [ "$COMPRESS" != "none" ] ; then
+if [ "$DWARF" = "dwarf-4" ] && [ "$COMPRESS" != "znone" ] ; then
     continue
 fi
-if [ "$DWARFCLASS" = "dwarf64" ] && [ "$COMPRESS" != "none" ] ; then
+if [ "$DWARFCLASS" = "dwarf64" ] && [ "$COMPRESS" != "znone" ] ; then
 	continue;
 fi
 
 CXX=${CC}++
-DBG=lldb
+DBG=gdb
 LIBFLAGS=""
 TARGET=""
 if [ "$CC" = "gcc" ] ; then
@@ -57,7 +57,6 @@ if [ "$CC" = "gcc" ] ; then
     else
     CXX=g++
     fi
-    DBG=gdb
 else
     CXX="clang++"    
     if [ "$RAW_ARCH" != "$HOST_ARCH" ] ; then
@@ -73,13 +72,14 @@ if [ "$RAW_ARCH" = "riscv64" ] && [ "$CC" = "clang" ] ; then
 fi
 echo $CXX $TARGET
 mkdir -p $ARCH
-OPT=-O1
+OPT=-$OLEVEL
 cd $ARCH
-mkdir -p ./$CC-$DWARF-$DWARFCLASS-$COMPRESS
-cd ./$CC-$DWARF-$DWARFCLASS-$COMPRESS
+DIR=$CC-$DWARF-$DWARFCLASS-$OLEVEL-$COMPRESS
+mkdir -p ./$DIR
+cd ./$DIR
 GZ="-gz=$COMPRESS"
 LGZ="-Wl,--compress-debug-sections=$COMPRESS"
-if [ "$COMPRESS" = "none" ] ; then
+if [ "$COMPRESS" = "znone" ] ; then
 GZ=""
 LGZ=""
 fi
@@ -109,7 +109,7 @@ for DUMMY in dummy-buildid.exe dummy-noid.exe dummy-buildid.pie dummy-noid.pie ;
     # we remove troublesome symbols to normalize output
     # it doesn't ignore notype symbols, it probably should
     objcopy -N __JCR_END__ $DUMMY # java c runtime symbol defined on FreeBSD
-    # objcopy -N \$d $DUMMY
+    objcopy -N _end $DUMMY
     objcopy --only-keep-debug $DUMMY $DUMMY.dbg
     objcopy --strip-debug $DUMMY $DUMMY.stripped
     objcopy --add-gnu-debuglink=$DUMMY.dbg $DUMMY.stripped
@@ -127,6 +127,7 @@ fi
 cd ..
 cd ..
 
+done
 done
 done
 done

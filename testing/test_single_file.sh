@@ -30,4 +30,4 @@ fi
 
 cdx readelf --format=$TOOLNAME $OPTION $FILE > output_$TOOLNAME.txt
 
-exec diff   --color golden_$TOOLNAME.txt output_$TOOLNAME.txt
+exec diff   --color golden_$TOOLNAME.txt output_$TOOLNAME.txt # && echo success || echo failure

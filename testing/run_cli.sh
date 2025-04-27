@@ -14,9 +14,11 @@ node --version
 cdx readelf --version
 
 FILES="build/*-*/*-*/dummy-buildid.pie build/*-*/*-*/dummy-buildid.exe"
-#if false ; then
-TOOLS="elfutils cdx" # binutils
-OPTIONS="--segments --sections --debug-dump=info"
+FILES_v5="build/*-*/*dwarf-5*/dummy-buildid.pie build/*-*/*dwarf-5*/dummy-buildid.exe"
+
+if true ; then
+TOOLS="elfutils"
+OPTIONS="--debug-dump=info"
 for t in $TOOLS; do
     for f in $FILES; do
         for o in $OPTIONS; do
@@ -24,17 +26,24 @@ for t in $TOOLS; do
         done
     done
 done
-#fi
-
-TOOLS="binutils cdx"
+fi
+if true ; then
+TOOLS="binutils "
 OPTIONS="--debug-dump=frames"
 for t in $TOOLS; do
     for f in $FILES; do
         for o in $OPTIONS; do
-            if  dirname $f | grep -c arm && basename $f | grep -c exe; then
-            # no support for debug_frame at the moment
-            continue;
-            fi
+            ./test_single_file.sh $t $o $f
+        done
+    done
+done
+fi
+
+TOOLS="binutils "
+OPTIONS="--debug-dump=Ranges"
+for t in $TOOLS; do
+    for f in $FILES_v5; do
+        for o in $OPTIONS; do
             ./test_single_file.sh $t $o $f
         done
     done
