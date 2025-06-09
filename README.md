@@ -31,12 +31,14 @@ Limitations:
 * If you run this in your web browser, you are limited to 2GB total memory.
 * It does not have progress bars.
 
-If you don't have a linux core dump available, I put one into the [example](example) folder:
+I have created a selection of core dumps with various problems:
+*  [Invalid pointer derefence](https://core-explorer.github.io/core-explorer/index-st.html?download=https://core-explorer.github.io/binary-samples/cpp-examples/x86_64-Debug-bookworm/PointerExample.gdb.core&download1=https://core-explorer.github.io/binary-samples/cpp-examples/x86_64-Debug-bookworm/PointerExample)
+* [Calling a virtual function from a base class](https://core-explorer.github.io/core-explorer/index-st.html?download=https://core-explorer.github.io/binary-samples/cpp-examples/x86_64-Debug-noble/VirtualExample.gdb.core&download1=https://core-explorer.github.io/binary-samples/cpp-examples/x86_64-Debug-noble/VirtualExample)
+* [leaking memory](https://core-explorer.github.io/core-explorer/index-st.html?download=https://core-explorer.github.io/binary-samples/cpp-examples/x86_64-Debug-bookworm-clang/NewExample.gdb.core&download1=https://core-explorer.github.io/binary-samples/cpp-examples/x86_64-Debug-bookworm-clang/NewExample)
+* [Corrupting malloc metadata](https://core-explorer.github.io/core-explorer/index-st.html?download=https://core-explorer.github.io/binary-samples/cpp-examples/x86_64-Debug-noble/VectorExample.gdb.core&download1=https://core-explorer.github.io/binary-samples/cpp-examples/x86_64-Debug-noble/VectorExample)
 
-Try it with [example core dump](https://core-explorer.github.io/core-explorer?download=https://core-explorer.github.io/core-explorer/example/core.3394593&download1=https://core-explorer.github.io/core-explorer/example/dummy_O2_zrelro_g_fPIE&download2=https://core-explorer.github.io/core-explorer/example/libshared_O2_zrelro_g.so)
 
 ![Memory Leaks](images/memory_leak_light.png)
-![Memory Contents](images/memory_contents_dark.png)
 
 ## Standalone Application ##
 
