@@ -52,6 +52,11 @@
     color: var(--text-color);
     border-color: var(--border-color);
   }
+  textarea {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+  }
   pre {
     font-family: "Ubuntu Sans Mono";
   }
