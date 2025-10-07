@@ -3,7 +3,14 @@
     --text-color: #000;
     --text-addr-color: #000;
     --key-color: blue;
-    --brace-color: green;
+    --brace-color1: #008000;
+    --brace-color1-odd: #008080;
+    --brace-color2: #800080;
+    --brace-color2-odd: #804080;
+    --brace-color3: #0000ff;
+    --brace-color3-odd: #3030ff;
+    --brace-color4: #ff0000;
+    --brace-color4-odd: #cf6040;
     --link-color: darkblue;
     --visited-color: purple;
     --ppkey-color: red;
@@ -16,7 +23,14 @@
     --text-color: #fff;
     --text-addr-color: #8cf;
     --key-color: indianred;
-    --brace-color: green;
+    --brace-color1: #008000;
+    --brace-color1-odd: #008080;
+    --brace-color2: #800080;
+    --brace-color2-odd: #804080;
+    --brace-color3: #0000ff;
+    --brace-color3-odd: #3030ff;
+    --brace-color4: #ffff00;
+    --brace-color4-odd: #ffcf00;
     --link-color: lightskyblue;
     --visited-color: mediumorchid;
     --ppkey-color: yellow;
@@ -256,12 +270,40 @@
   .struct {
     font-family: "Ubuntu Sans Mono", monospace;
   }
-  
-  .brace {
-    font-family: "Ubuntu Sans Mono", monospace;
-    color: var(--brace-color);
-  }
-  
+
+ .braces1:nth-of-type(even) > .brace {
+  color: var(--brace-color1);
+}
+
+ .braces1:nth-of-type(odd) > .brace {
+  color: var(--brace-color1-odd);
+}
+
+ .braces2:nth-of-type(even) > .brace {
+  color: var(--brace-color2);
+}
+
+ .braces2:nth-of-type(odd) > .brace {
+  color: var(--brace-color2-odd);
+}
+
+.braces3:nth-of-type(even) > .brace  {
+  color: var(--brace-color3);
+}
+
+.braces3:nth-of-type(odd) > .brace {
+  color: var(--brace-color3-odd);
+}
+
+ .braces4:nth-of-type(even) > .brace {
+  color: var(--brace-color4);
+}
+
+ .braces4:nth-of-type(odd) > .brace {
+  color: var(--brace-color4-odd);
+}
+
+
   .typedef {
     font-family: "Ubuntu Sans Mono", monospace;
   }
